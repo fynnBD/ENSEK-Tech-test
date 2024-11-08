@@ -4,35 +4,22 @@
     {
         public int Id { get; set; }
 
-        private string firstName { get; set; }
+        public string FirstName { get; set; }
 
-        private string lastName { get; set; }
+        public string LastName { get; set; }
 
-        private DateTime? lastReading { get; set; }
+        private EnergyReading? lastReading { get; set; }
 
-        private long? meterReading { get; set; }
-
-        public EnergyAccount(int id, string firstName, string lastName)
+        public void SetReading(EnergyReading reading)
         {
-            this.Id = id;
-            this.firstName = firstName;
-            this.lastName = lastName;
-        }
-
-        public void SetReading(DateTime readingDateTime, long reading)
-        {
-            if (this.lastReading == null || readingDateTime > this.lastReading)
-            {
-                this.lastReading = readingDateTime;
-                this.meterReading = reading;
-            }
+            this.lastReading = reading;
         }
 
         public DateTime GetLastReadingTime()
         {
-            if (!this.lastReading.HasValue)
+            if (this.lastReading != null)
             {
-                return (DateTime)lastReading;
+                return lastReading.ReadingDateTime;
             }
 
             return DateTime.MinValue;
@@ -40,9 +27,9 @@
 
         public long GetMeterReading()
         {
-            if (!this.meterReading.HasValue)
+            if (this.lastReading != null)
             {
-                return (long)meterReading!;
+                return lastReading.Reading;
             }
 
             return 0;
