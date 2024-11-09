@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ENSEK_Technical_Test.Models;
 using ENSEK_Technical_Test.Data;
 using ENSEK_Technical_Test.Services;
+using ENSEK_Technical_Test.Services.Repository;
 
 namespace ENSEK_Technical_Test.Controllers
 {
@@ -17,13 +18,12 @@ namespace ENSEK_Technical_Test.Controllers
     {
         private readonly EnergyAccountContext _context;
         private readonly ReadingRepository accountRepository;
-        private readonly CSVUploadService csvUploadService;
-
-        public EnergyAccountsController(EnergyAccountContext context, ReadingRepository accountRepository, CSVUploadService csvUploadService)
+        private readonly CsvParseAndSaveService csvParseAndSaveService;
+        public EnergyAccountsController(EnergyAccountContext context, ReadingRepository accountRepository, CsvParseAndSaveService csvParseAndSaveService)
         {
             _context = context;
             this.accountRepository = accountRepository;
-            this.csvUploadService = csvUploadService;
+            this.csvParseAndSaveService = csvParseAndSaveService;
         }
 
         // GET: api/EnergyAccounts
@@ -33,19 +33,19 @@ namespace ENSEK_Technical_Test.Controllers
             return await _context.EnergyAccounts.ToListAsync();
         }
 
-        // GET: api/EnergyAccounts/5
-        [HttpGet("GetReadingForAccount/{id}")]
-        public async Task<ActionResult<EnergyReading>> GetReadingForAccount(int id)
-        {
-            var energyReading = await accountRepository.GetForAccountID(id);
+        //// GET: api/EnergyAccounts/5
+        //[HttpGet("GetReadingForAccount/{id}")]
+        //public async Task<ActionResult<EnergyReading>> GetReadingForAccount(int id)
+        //{
+        //    var energyReading = await accountRepository.GetForAccountID(id);
 
-            if (energyReading == null)
-            {
-                return NotFound();
-            }
+        //    if (energyReading == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return new OkObjectResult(energyReading);
-        }
+        //    return new OkObjectResult(energyReading);
+        //}
 
         // GET: api/EnergyAccounts/5
         [HttpGet("{id}")]
@@ -65,8 +65,14 @@ namespace ENSEK_Technical_Test.Controllers
         [HttpPost("Post")]
         public async Task<ActionResult<EnergyAccount>> PostMeterReadings(IFormFile file)
         {
-             csvUploadService.GetReadingsFromCSV(file);
-             return Ok();
+             var savedReadings = csvParseAndSaveService.CsvParseAndSave(file);
+
+             if (savedReadings.TotalFailed > 0)
+             {
+                 return new BadRequestObjectResult(savedReadings);
+             }
+
+             return new OkObjectResult(savedReadings);
         }
 
         private bool EnergyAccountExists(int id)

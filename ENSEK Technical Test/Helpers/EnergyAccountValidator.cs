@@ -1,6 +1,6 @@
 ﻿using ENSEK_Technical_Test.Models;
 
-namespace ENSEK_Technical_Test.He
+namespace ENSEK_Technical_Test.Helpers
 {
     public static class EnergyAccountValidator
     {

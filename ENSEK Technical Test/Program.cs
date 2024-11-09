@@ -1,7 +1,9 @@
 using ENSEK_Technical_Test.Controllers;
 using ENSEK_Technical_Test.Data;
+using ENSEK_Technical_Test.Helpers;
 using ENSEK_Technical_Test.Models;
 using ENSEK_Technical_Test.Services;
+using ENSEK_Technical_Test.Services.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +21,9 @@ builder.Services.AddDbContext<EnergyAccountContext>(options => options.UseSqlSer
 builder.Services.AddScoped<AccountRepository>();
 builder.Services.AddScoped<CSVUploadService>();
 builder.Services.AddScoped<ReadingRepository>();
+builder.Services.AddScoped<EnergyReadingValidator>();
+builder.Services.AddScoped<ReadingValidatorService>();
+builder.Services.AddScoped<CsvParseAndSaveService>();
 
 var app = builder.Build();
 

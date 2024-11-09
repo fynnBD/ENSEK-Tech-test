@@ -2,7 +2,8 @@
 using ENSEK_Technical_Test.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ENSEK_Technical_Test.Services{
+namespace ENSEK_Technical_Test.Services.Repository
+{
 
     public class ReadingRepository
     {
@@ -10,12 +11,12 @@ namespace ENSEK_Technical_Test.Services{
 
         public ReadingRepository(EnergyAccountContext dbContext)
         {
-            this.erContext = dbContext;
+            erContext = dbContext;
         }
 
-        public Task<EnergyReading> GetForAccountID(int accountID)
+        public EnergyReading? GetForAccountID(int accountID)
         {
-            return erContext.EnergyReadings.FirstOrDefaultAsync(e => e.AccountID == accountID);
+            return erContext.EnergyReadings.FirstOrDefault(e => e.AccountID == accountID);
         }
 
         public IQueryable<EnergyReading> GetAll()

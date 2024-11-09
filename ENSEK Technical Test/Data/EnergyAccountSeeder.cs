@@ -2,7 +2,7 @@
 using CsvHelper;
 using ENSEK_Technical_Test.Controllers;
 using ENSEK_Technical_Test.Data.Interfaces;
-using ENSEK_Technical_Test.He;
+using ENSEK_Technical_Test.Helpers;
 using ENSEK_Technical_Test.Mappers;
 using ENSEK_Technical_Test.Models;
 using Microsoft.EntityFrameworkCore;
