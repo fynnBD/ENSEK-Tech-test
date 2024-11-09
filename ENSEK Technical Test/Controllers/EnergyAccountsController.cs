@@ -65,7 +65,7 @@ namespace ENSEK_Technical_Test.Controllers
         [HttpPost("meter-reading-uploads")]
         public async Task<ActionResult<EnergyAccount>> PostMeterReadings(IFormFile file)
         {
-             var savedReadings = csvParseAndSaveService.CsvParseAndSave(file);
+             var savedReadings =  await csvParseAndSaveService.CsvParseAndSave(file);
 
              if (savedReadings.TotalFailed > 0)
              {

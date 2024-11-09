@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ENSEK_App
 {
@@ -15,7 +17,7 @@ namespace ENSEK_App
 
         private AppModel Model;
 
-        private ENSEKResponse response;
+        public ENSEKResponse response = new ENSEKResponse();
 
         public AppController(AppView view)
         {
@@ -47,9 +49,17 @@ namespace ENSEK_App
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                var response = Model.PostCSV(openFileDialog.FileName);
+                var response = Model.PostCSV(openFileDialog.FileName).Result;
+                UpdatePreparedResponse(response);
             }
         }
+
+        private void UpdatePreparedResponse(string response)
+        {
+            var outt = JsonConvert.DeserializeObject<ENSEKResponse>(response);
+
+        }
+
 
     }
 }

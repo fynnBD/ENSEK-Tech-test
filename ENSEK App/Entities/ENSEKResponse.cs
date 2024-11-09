@@ -8,17 +8,11 @@ namespace ENSEK_App
 {
     public class ENSEKResponse
     {
-        public int failedCount { get; set; }
-        public int savedCount { get; set; }
-        public int totalCount { get; set; }
+        public int totalUploaded { get; set; }
+        public int totalSaved { get; set; }
+        public int totalFailed { get; set; }
 
-        public IList<Error> errorDictionary => new List<Error>();
+        public IDictionary<int, string> failures;
 
-    }
-
-    public class Error
-    {
-        public int Id { get; set; }
-        public string Message { get; set; }
     }
 }

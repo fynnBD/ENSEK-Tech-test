@@ -30,7 +30,7 @@ namespace ENSEK_App
             client.DefaultRequestHeaders.CacheControl = cacheControl;
         }
 
-        public async string PostCSV(string filePath)
+        public async Task<string> PostCSV(string filePath)
         {
             byte[] bytes = File.ReadAllBytes(filePath); //c://Temp/test.csv
             HttpContent fileContent = new ByteArrayContent(bytes);
@@ -39,16 +39,17 @@ namespace ENSEK_App
             try
             {
 
-                var response = await client.PostAsync("meter-reading-uploads", new MultipartFormDataContent
+                var response = client.PostAsync("meter-reading-uploads", new MultipartFormDataContent
                 {
                     {fileContent, "\"file\"", "\"test.csv\""}
                 });
 
                 //response.Content = new ByteArrayContent(bytes);
-                var content = response.Content.ReadAsStringAsync();
+                return await response.Result.Content.ReadAsStringAsync();
             }
             catch (Exception ex)
             {
+                return null;
             }
         }
     }

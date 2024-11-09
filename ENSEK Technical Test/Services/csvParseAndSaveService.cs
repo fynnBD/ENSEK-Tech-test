@@ -15,16 +15,16 @@ namespace ENSEK_Technical_Test.Services
             this._csvUploadService = csvUploadService;
         }
 
-        public UploadResponseDto CsvParseAndSave(IFormFile file)
+        public async Task<UploadResponseDto> CsvParseAndSave(IFormFile file)
         {
             Dictionary<int, string> errorDictionary = new Dictionary<int, string>();
             var results = _csvUploadService.GetReadingsFromCsv(file);
             var validResults = _readingValidatorService.ValidateReadings(results, errorDictionary);
             validResults = _readingSaverService.SaveReadings(validResults, errorDictionary);
-            return PrepareResponse(results.Count, validResults.Count, errorDictionary);
+            return await PrepareResponse(results.Count, validResults.Count, errorDictionary);
         }
 
-        private UploadResponseDto PrepareResponse(int totalReads, int validReads,
+        private async Task<UploadResponseDto> PrepareResponse(int totalReads, int validReads,
             Dictionary<int, string> errorDictionary)
         {
             UploadResponseDto response = new UploadResponseDto();
