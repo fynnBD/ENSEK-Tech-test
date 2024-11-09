@@ -20,7 +20,7 @@ namespace ENSEK_Technical_Test.Services
             {
                 try
                 {
-                    _readingRepository.SaveReading(reading);
+                    _readingRepository.Save(reading);
                     validReadings.Add(reading);
                 }
                 catch (Exception ex)

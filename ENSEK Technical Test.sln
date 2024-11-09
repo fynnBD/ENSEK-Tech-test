@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ENSEK Technical Test", "ENS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ENSEK Techincal TestyTest", "ENSEK Techincal TestyTest\ENSEK Techincal TestyTest.csproj", "{934136DF-C3D3-46E7-9962-790926EC18DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ENSEK App", "ENSEK App\ENSEK App.csproj", "{EDA19C3F-A64D-46FC-A6F2-215700910A2F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{934136DF-C3D3-46E7-9962-790926EC18DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{934136DF-C3D3-46E7-9962-790926EC18DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{934136DF-C3D3-46E7-9962-790926EC18DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDA19C3F-A64D-46FC-A6F2-215700910A2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDA19C3F-A64D-46FC-A6F2-215700910A2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDA19C3F-A64D-46FC-A6F2-215700910A2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDA19C3F-A64D-46FC-A6F2-215700910A2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
