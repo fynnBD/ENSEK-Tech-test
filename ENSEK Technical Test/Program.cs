@@ -1,4 +1,3 @@
-using ENSEK_Technical_Test.Controllers;
 using ENSEK_Technical_Test.Data;
 using ENSEK_Technical_Test.Helpers;
 using ENSEK_Technical_Test.Models;
@@ -16,13 +15,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddDbContext<EnergyAccountContext>(options => options.UseSqlServer("Data Source=localhost\\SQLEXPRESS;Initial Catalog=ensekDB;Integrated Security=True;TrustServerCertificate=True"));
+builder.Services.AddDbContext<EnergyContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnectionString")));
 
 builder.Services.AddScoped<AccountRepository>();
-builder.Services.AddScoped<CSVUploadService>();
+builder.Services.AddScoped<CsvUploadService>();
 builder.Services.AddScoped<ReadingRepository>();
 builder.Services.AddScoped<EnergyReadingValidator>();
 builder.Services.AddScoped<ReadingValidatorService>();
+builder.Services.AddScoped<ReadingSaverService>();
 builder.Services.AddScoped<CsvParseAndSaveService>();
 
 var app = builder.Build();

@@ -1,41 +1,39 @@
 ﻿using ENSEK_Technical_Test.Models;
-using System.Linq;
 using ENSEK_Technical_Test.Services.Repository;
 
 namespace ENSEK_Technical_Test.Helpers
 {
-    public class EnergyReadingValidator
+    public class EnergyReadingValidator(AccountRepository accountRepository)
     {
-        private readonly AccountRepository accountRepository;
-
-        public EnergyReadingValidator(AccountRepository accountRepository)
-        {
-            this.accountRepository = accountRepository;
-        }
         public bool Validate(EnergyReading reading, Dictionary<int, string> errorList)
         {
             if (reading.Reading > 99999 || reading.Reading < 0)
             {
-                errorList.Add(reading.AccountID, "Reading value (" + reading.Reading + ") outside of range");
+                errorList.TryAdd(reading.AccountID, "Reading value (" + reading.Reading + ") outside of range");
                 return false;
             }
 
             if (!accountRepository.GetAll().Any(t => t.Id == reading.AccountID))
             {
-                errorList.Add(reading.AccountID, "AccountID (" + reading.AccountID + ") does not exist");
+                errorList.TryAdd(reading.AccountID, "AccountID (" + reading.AccountID + ") does not exist");
                 return false;
             }
-            EnergyAccount energyAccount = accountRepository.Get(reading.AccountID);
+            EnergyAccount? energyAccount = (EnergyAccount)accountRepository.Get(reading.AccountID);
+
+            if (energyAccount == null)
+            {
+                return false;
+            }
 
             if (energyAccount.GetMeterReading() >= reading.Reading)
             {
-                errorList.Add(reading.AccountID, "Reading value is less that reading value in database");
+                errorList.TryAdd(reading.AccountID, "Reading value is less that reading value in database");
                 return false;
             }
 
             if (energyAccount.GetLastReadingTime() >= reading.ReadingDateTime)
             {
-                errorList.Add(reading.AccountID, "Reading date is less than reading in database");
+                errorList.TryAdd(reading.AccountID, "Reading date is less than reading in database");
                 return false;
             }
 

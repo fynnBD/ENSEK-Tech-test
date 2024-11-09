@@ -6,10 +6,10 @@ using ENSEK_Technical_Test.Mappers;
 
 namespace ENSEK_Technical_Test.Services
 {
-    public class CSVUploadService
+    public class CsvUploadService
     {
 
-        public IList<EnergyReading> GetReadingsFromCSV(IFormFile file)
+        public IList<EnergyReading> GetReadingsFromCsv(IFormFile file)
         {
             IList<EnergyReading> readings = new List<EnergyReading>();
 
@@ -34,9 +34,9 @@ namespace ENSEK_Technical_Test.Services
                         }
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
-                    throw new CSVFileParseException("An error occured while loading the CSV file at row " + csv.CurrentIndex);
+                    throw new CsvFileParseException("An error occured while loading the CSV file at row " + csv.CurrentIndex);
                 }
             }
 

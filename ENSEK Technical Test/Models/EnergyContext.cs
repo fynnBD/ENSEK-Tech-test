@@ -1,13 +1,12 @@
 ﻿using ENSEK_Technical_Test.Data;
-using ENSEK_Technical_Test.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ENSEK_Technical_Test.Controllers
+namespace ENSEK_Technical_Test.Models
 {
-    public class EnergyAccountContext : DbContext
+    public class EnergyContext : DbContext
     {
         private EnergyAccountSeeder energyAccountSeeder { get; }
-        public EnergyAccountContext(DbContextOptions<EnergyAccountContext> options) : base(options)
+        public EnergyContext(DbContextOptions<EnergyContext> options) : base(options)
         {
             energyAccountSeeder = new EnergyAccountSeeder(this);
         }

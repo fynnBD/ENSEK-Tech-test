@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ENSEK Technical Test", "ENSEK Technical Test\ENSEK Technical Test.csproj", "{70001799-4AE4-4981-90B7-C86C7C851D98}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ENSEK Techincal TestyTest", "ENSEK Techincal TestyTest\ENSEK Techincal TestyTest.csproj", "{934136DF-C3D3-46E7-9962-790926EC18DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{70001799-4AE4-4981-90B7-C86C7C851D98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70001799-4AE4-4981-90B7-C86C7C851D98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70001799-4AE4-4981-90B7-C86C7C851D98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{934136DF-C3D3-46E7-9962-790926EC18DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{934136DF-C3D3-46E7-9962-790926EC18DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{934136DF-C3D3-46E7-9962-790926EC18DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{934136DF-C3D3-46E7-9962-790926EC18DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

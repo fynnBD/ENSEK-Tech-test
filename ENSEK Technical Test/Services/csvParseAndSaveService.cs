@@ -1,35 +1,33 @@
-﻿using ENSEK_Technical_Test.Controllers;
-using ENSEK_Technical_Test.DTO;
-using ENSEK_Technical_Test.Services.Repository;
+﻿using ENSEK_Technical_Test.DTO;
 
 namespace ENSEK_Technical_Test.Services
 {
     public class CsvParseAndSaveService
     {
-        private readonly ReadingValidatorService readingValidatorService;
-        private readonly ReadingRepository readingRepository;
-        private readonly CSVUploadService csvUploadService;
+        private readonly ReadingValidatorService _readingValidatorService;
+        private readonly ReadingSaverService _readingSaverService;
+        private readonly CsvUploadService _csvUploadService;
 
-        public CsvParseAndSaveService(CSVUploadService csvUploadService, ReadingValidatorService readingValidatorService, ReadingRepository readingRepository)
+        public CsvParseAndSaveService(CsvUploadService csvUploadService, ReadingValidatorService readingValidatorService, ReadingSaverService readingSaverService)
         {
-            this.readingValidatorService = readingValidatorService;
-            readingRepository = readingRepository;
-            this.csvUploadService = csvUploadService;
+            this._readingValidatorService = readingValidatorService;
+            this._readingSaverService = readingSaverService;
+            this._csvUploadService = csvUploadService;
         }
 
-        public UploadResponseDTO CsvParseAndSave(IFormFile file)
+        public UploadResponseDto CsvParseAndSave(IFormFile file)
         {
             Dictionary<int, string> errorDictionary = new Dictionary<int, string>();
-            var results = csvUploadService.GetReadingsFromCSV(file);
-            var validResults = readingValidatorService.ValidateReadings(results, errorDictionary);
-            var validResults = readingRepository.SaveAll()
-            return prepareResponse(results.Count, validResults.Count, errorDictionary);
+            var results = _csvUploadService.GetReadingsFromCsv(file);
+            var validResults = _readingValidatorService.ValidateReadings(results, errorDictionary);
+            validResults = _readingSaverService.SaveReadings(validResults, errorDictionary);
+            return PrepareResponse(results.Count, validResults.Count, errorDictionary);
         }
 
-        private UploadResponseDTO prepareResponse(int totalReads, int validReads,
+        private UploadResponseDto PrepareResponse(int totalReads, int validReads,
             Dictionary<int, string> errorDictionary)
         {
-            UploadResponseDTO response = new UploadResponseDTO();
+            UploadResponseDto response = new UploadResponseDto();
             response.TotalUploaded = totalReads;
             response.TotalSaved = validReads;
 

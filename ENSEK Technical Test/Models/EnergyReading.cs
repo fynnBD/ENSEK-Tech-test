@@ -1,6 +1,8 @@
-﻿namespace ENSEK_Technical_Test.Models
+﻿using ENSEK_Technical_Test.Models.Interfaces;
+
+namespace ENSEK_Technical_Test.Models
 {
-    public class EnergyReading
+    public class EnergyReading : IEntity
     {
         public int Id { get; set; }
 

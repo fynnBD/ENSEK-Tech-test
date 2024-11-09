@@ -1,33 +1,29 @@
-﻿using ENSEK_Technical_Test.Controllers;
-using ENSEK_Technical_Test.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using ENSEK_Technical_Test.Models;
+using ENSEK_Technical_Test.Models.Interfaces;
 
 namespace ENSEK_Technical_Test.Services.Repository
 {
 
-    public class ReadingRepository
+    public class ReadingRepository(EnergyContext dbContext)
     {
-        private EnergyAccountContext erContext { get; set; }
+        private EnergyContext ErContext { get; set; } = dbContext;
 
-        public ReadingRepository(EnergyAccountContext dbContext)
+        public EnergyReading? GetForAccountId(int accountId)
         {
-            erContext = dbContext;
+            return ErContext.EnergyReadings.FirstOrDefault(e => e.AccountID == accountId);
         }
 
-        public EnergyReading? GetForAccountID(int accountID)
+        public void Save(IEntity energyReading)
         {
-            return erContext.EnergyReadings.FirstOrDefault(e => e.AccountID == accountID);
+            ErContext.EnergyReadings.Add((EnergyReading)energyReading);
+            ErContext.SaveChanges();
         }
 
-        public IQueryable<EnergyReading> GetAll()
+        public IEntity Get(int Id)
         {
-            return erContext.EnergyReadings.AsQueryable();
-        }
+            EnergyReading? result = ErContext.EnergyReadings.First(x => x.Id == Id);
 
-        public void SaveReading(EnergyReading energyReading)
-        {
-            erContext.EnergyReadings.Add(energyReading);
-            erContext.SaveChanges();
+            return result;
         }
     }
 }

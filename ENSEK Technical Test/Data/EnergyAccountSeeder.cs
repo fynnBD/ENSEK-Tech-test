@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using CsvHelper;
-using ENSEK_Technical_Test.Controllers;
 using ENSEK_Technical_Test.Data.Interfaces;
 using ENSEK_Technical_Test.Helpers;
 using ENSEK_Technical_Test.Mappers;
@@ -11,11 +10,11 @@ namespace ENSEK_Technical_Test.Data
 {
     public class EnergyAccountSeeder : IEnergyAccountSeeder
     {
-        public EnergyAccountContext AccountContext { get; }
+        public EnergyContext Context { get; }
 
-        public EnergyAccountSeeder(EnergyAccountContext energyAccountContext)
+        public EnergyAccountSeeder(EnergyContext energyContext)
         {
-            this.AccountContext = energyAccountContext;
+            this.Context = energyContext;
         }
 
         public void Seed(ModelBuilder modelBuilder)

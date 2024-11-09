@@ -16,10 +16,10 @@ namespace ENSEK_Technical_Test.Controllers
     [ApiController]
     public class EnergyAccountsController : ControllerBase
     {
-        private readonly EnergyAccountContext _context;
+        private readonly EnergyContext _context;
         private readonly ReadingRepository accountRepository;
         private readonly CsvParseAndSaveService csvParseAndSaveService;
-        public EnergyAccountsController(EnergyAccountContext context, ReadingRepository accountRepository, CsvParseAndSaveService csvParseAndSaveService)
+        public EnergyAccountsController(EnergyContext context, ReadingRepository accountRepository, CsvParseAndSaveService csvParseAndSaveService)
         {
             _context = context;
             this.accountRepository = accountRepository;
@@ -62,7 +62,7 @@ namespace ENSEK_Technical_Test.Controllers
         }
 
         // POST: api/EnergyAccounts/Post
-        [HttpPost("Post")]
+        [HttpPost("meter-reading-uploads")]
         public async Task<ActionResult<EnergyAccount>> PostMeterReadings(IFormFile file)
         {
              var savedReadings = csvParseAndSaveService.CsvParseAndSave(file);

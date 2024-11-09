@@ -1,6 +1,8 @@
-﻿namespace ENSEK_Technical_Test.Models
+﻿using ENSEK_Technical_Test.Models.Interfaces;
+
+namespace ENSEK_Technical_Test.Models
 {
-    public class EnergyAccount
+    public class EnergyAccount : IEntity
     {
         public int Id { get; set; }
 
@@ -10,7 +12,7 @@
 
         private EnergyReading? lastReading { get; set; }
 
-        public void SetReading(EnergyReading reading)
+        public void SetReading(EnergyReading? reading)
         {
             this.lastReading = reading;
         }
