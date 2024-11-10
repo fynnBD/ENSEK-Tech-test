@@ -25,4 +25,4 @@ An ASP.NET api that reads a .CSV file, saves it to a database, and returns uploa
 
 ### POSTMAN SHOULD LOOK LIKE THIS
 
-
+![Alt test](postman.png)
