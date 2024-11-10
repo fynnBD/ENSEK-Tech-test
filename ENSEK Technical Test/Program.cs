@@ -1,4 +1,4 @@
-using ENSEK_Technical_Test.Data;
+
 using ENSEK_Technical_Test.Helpers;
 using ENSEK_Technical_Test.Models;
 using ENSEK_Technical_Test.Services;
@@ -25,6 +25,7 @@ builder.Services.AddScoped<ReadingValidatorService>();
 builder.Services.AddScoped<ReadingSaverService>();
 builder.Services.AddScoped<CsvParseAndSaveService>();
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,6 +33,12 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<EnergyContext>();
+    db.Database.Migrate();
 }
 
 app.UseHttpsRedirection();

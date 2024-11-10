@@ -14,5 +14,17 @@ namespace ENSEK_App
 
         public IDictionary<int, string> failures;
 
-    }
+        public IList<KeyValuePair<int, string>> GetKeyValuePairs()
+        {
+            var keyValues = new List<KeyValuePair<int, string>>();
+            if (this.failures != null)
+            {
+                foreach (int key in failures.Keys)
+                {
+                    keyValues.Add(new KeyValuePair<int, string>(key, failures[key]));
+                }
+            }
+            return keyValues;
+        }
+}
 }

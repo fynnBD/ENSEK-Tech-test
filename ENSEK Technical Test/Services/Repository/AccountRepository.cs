@@ -16,9 +16,9 @@ namespace ENSEK_Technical_Test.Services.Repository
 
         public EnergyContext erContext { get; }
 
-        public IEntity Get(int id)
+        public IEntity? Get(int id)
         {
-            EnergyAccount? result = erContext.EnergyAccounts.First(x => x.Id == id);
+            EnergyAccount? result = erContext.EnergyAccounts.FirstOrDefault(x => x.Id == id);
             
             if (result != null)
             {
@@ -35,7 +35,7 @@ namespace ENSEK_Technical_Test.Services.Repository
 
         public IEnumerable<IEntity> GetAll(int id)
         {
-            return null;
+            return erContext.EnergyAccounts.AsQueryable();
         }
 
         public IQueryable<EnergyAccount> GetAll()

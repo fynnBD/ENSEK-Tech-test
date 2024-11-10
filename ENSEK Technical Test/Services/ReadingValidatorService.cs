@@ -24,7 +24,7 @@ namespace ENSEK_Technical_Test.Services
                     validReadings.Add(reading);
                 }
             }
-            _energyReadingValidator.ValidateDuplicates(readings, errorList);
+            validReadings = _energyReadingValidator.ValidateDuplicates(validReadings, errorList);
 
             return validReadings;
         }

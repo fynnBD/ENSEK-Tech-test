@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ENSEK_App
 {
@@ -13,24 +11,25 @@ namespace ENSEK_App
     public class AppModel
     {
 
-        private HttpClient client;
+        private HttpClient _client;
+        private readonly string baseURI = "https://localhost:44330/api/EnergyAccounts/";
 
-        public void SetupAPI()
+        public void SetupApi()
         {
-            client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:7065/api/EnergyAccounts/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
+            _client = new HttpClient();
+            _client.BaseAddress = new Uri(baseURI);
+            _client.DefaultRequestHeaders.Accept.Clear();
+            _client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Accept.Add(
+            _client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
 
             CacheControlHeaderValue cacheControl = new CacheControlHeaderValue();
             cacheControl.NoCache = true;
-            client.DefaultRequestHeaders.CacheControl = cacheControl;
+            _client.DefaultRequestHeaders.CacheControl = cacheControl;
         }
 
-        public async Task<string> PostCSV(string filePath)
+        public async Task<string> PostCsv(string filePath)
         {
             byte[] bytes = File.ReadAllBytes(filePath); //c://Temp/test.csv
             HttpContent fileContent = new ByteArrayContent(bytes);
@@ -39,16 +38,27 @@ namespace ENSEK_App
             try
             {
 
-                var response = client.PostAsync("meter-reading-uploads", new MultipartFormDataContent
+                var response = _client.PostAsync("meter-reading-uploads", new MultipartFormDataContent
                 {
                     {fileContent, "\"file\"", "\"test.csv\""}
                 });
 
                 //response.Content = new ByteArrayContent(bytes);
-                return await response.Result.Content.ReadAsStringAsync();
+                if(response != null)
+                {
+                    return await response.Result.Content.ReadAsStringAsync();
+                }
+                else
+                {
+                    MessageBox.Show(response.Result.ReasonPhrase, @"Error Occured",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, @"Error Occured",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
         }

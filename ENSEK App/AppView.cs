@@ -1,34 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ENSEK_App
 {
     public partial class AppView : Form
     {
-        public Button UploadButton => uploadButton;
-
         public event EventHandler UploadClicked;
 
-        protected AppController controller;
+        public BindingSource EnsekBindingSource => this.eNSEKResponseBindingSource;
+        public BindingSource EnsekOtherBindingSource => this.eNSEKOTHERResponseBindingSource;
+
+        protected AppController Controller;
         public AppView()
         {
             InitializeComponent();
             uploadButton.Click += (sender, e) => RaiseEvent(UploadClicked, sender, e);
-
 
             SetController();
         }
 
         private void SetController()
         {
-            controller = new AppController(this);
+            Controller = new AppController(this);
         }
 
         protected void RaiseEvent(EventHandler methodDelegate, object sender, EventArgs e)
