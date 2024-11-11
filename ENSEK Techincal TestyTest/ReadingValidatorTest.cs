@@ -1,5 +1,9 @@
 using Autofac.Extras.Moq;
 using Autofac;
+using ENSEK_Technical_Test.Models;
+using ENSEK_Technical_Test.Services.Repository;
+using Moq;
+
 
 namespace ENSEK_Techincal_TestyTest
 {
@@ -14,6 +18,11 @@ namespace ENSEK_Techincal_TestyTest
         protected override void OverrideDependenciesWithMocks(AutoMock mock, ContainerBuilder builder)
         {
             base.OverrideDependenciesWithMocks(mock, builder);
+
+            EnergyAccount fakeAccount = new EnergyAccount();
+            fakeAccount.FirstName = "Test";
+            fakeAccount.LastName = "Tester";
+            fakeAccount.SetReading(new EnergyReading());
         }
 
         [Test]
@@ -25,7 +34,7 @@ namespace ENSEK_Techincal_TestyTest
 
         public void MockDataObjectWithFake()
         {
-
+            
         }
     }
 }

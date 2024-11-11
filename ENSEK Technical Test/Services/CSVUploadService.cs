@@ -6,9 +6,16 @@ using ENSEK_Technical_Test.Mappers;
 
 namespace ENSEK_Technical_Test.Services
 {
+    /// <summary>
+    /// Class <c>CsvUploadService</c> reads a CSV file and returns
+    /// a list of EnergyReading Objects
+    /// </summary>
     public class CsvUploadService
     {
-
+        /// <summary>
+        /// reads a CSV file and returns
+        /// a list of EnergyReading Objects
+        /// </summary>
         public IList<EnergyReading> GetReadingsFromCsv(IFormFile file)
         {
             IList<EnergyReading> readings = new List<EnergyReading>();

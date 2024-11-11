@@ -30,4 +30,8 @@
     <Folder Include="TestData\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ENSEK Technical Test\ENSEK Technical Test.csproj" />
+  </ItemGroup>
+
 </Project>

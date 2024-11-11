@@ -6,6 +6,8 @@ namespace ENSEK_Technical_Test.Services.Repository.Interfaces
     {
         IEnumerable<IEntity> GetAll(int id);
 
+        IEntity? Get(int id);
+
         void Save(IEntity entity);
     }
 }
